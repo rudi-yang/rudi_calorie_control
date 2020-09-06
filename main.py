@@ -1,3 +1,5 @@
+import traceback
+
 from rudi_controller import RudiControl
 import pandas as pd
 
@@ -19,15 +21,20 @@ while True:
             day_duration = int(day_duration)
             control.show_time_distribution_till_now(day_duration)
         elif action_id == 3:
-            # 吃饭 鱼香肉丝 吃的很开心 202009061200 202009062000
+            print("最近两天的全部记录如下：")
             print(control.get_data_recent_2_days())
-            content = input(">>> 输入插入记录:")
-            content = content.split(" ")
+            print("*********************************************************")
+            print("输入数据样例：喝饮料 喜茶 真开心 20200907")
+            print("*********************************************************")
+            print("注意，每条输入只对应当天")
+            content = input(">>> :")
+            content = content.split("，")
             print("输入内容为:", content)
             try:
                 content = control.instert_time_control(*content)
             except Exception as e:
-                print("插入失败,检查输入格式")
+                print(e)
+                print("插入失败,检查输入格式\n")
         elif action_id == 4:
             ids = input(">>> 输入要删除的记录id:")
             ids = ids.split(",")
@@ -36,5 +43,7 @@ while True:
         else:
             print("...输入有误，重新输入")
     except Exception as e:
+        print(e)
+        traceback.print_stack()
         print("出现未知错误")
         continue
