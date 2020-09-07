@@ -39,6 +39,7 @@ class RudiControl():
 
     def get_data_all(self):
         data = pd.read_sql('select * from calorie_control', self.conn)
+
         return data
 
     def get_data_recent_2_days(self):
